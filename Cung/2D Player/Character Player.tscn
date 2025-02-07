@@ -1,0 +1,147 @@
+[gd_scene load_steps=10 format=3 uid="uid://bi5rwlpl8vbtp"]
+
+[ext_resource type="Texture2D" uid="uid://dsa3hrj8rn1rn" path="res://Cung/2D Player/Prototype_Character/Prototype_Character.png" id="1_xukgx"]
+
+[sub_resource type="GDScript" id="GDScript_a7uco"]
+script/source = "extends CharacterBody2D
+
+@export var speed = 250
+
+@onready var animation_player = $Sprite2D/AnimationPlayer
+@onready var sprite = $Sprite2D
+
+func _physics_process(delta):
+	var move_velocity = Vector2.ZERO
+	var is_moving = false
+
+	if Input.is_action_pressed(\"ui_right\"):
+		move_velocity.x += 1
+		sprite.scale = Vector2(2.602, 3.867)  # Ensure the sprite is not flipped
+		animation_player.play(\"idle_right\")
+		is_moving = true
+	elif Input.is_action_pressed(\"ui_left\"):
+		move_velocity.x -= 1
+		sprite.scale = Vector2(-2.602, 3.867)  # Flip the sprite horizontally
+		animation_player.play(\"idle_right\")
+		is_moving = true
+	elif Input.is_action_pressed(\"ui_down\"):
+		move_velocity.y += 1
+		sprite.scale = Vector2(2.602, 3.867)
+		animation_player.play(\"idle_Down\")
+		is_moving = true
+	elif Input.is_action_pressed(\"ui_up\"):
+		move_velocity.y -= 1
+		sprite.scale = Vector2(2.602, 3.867)
+		animation_player.play(\"idle_Up\")
+		is_moving = true
+
+	if not is_moving:
+		animation_player.stop()
+
+	move_velocity = move_velocity.normalized() * speed
+	move_and_collide(move_velocity * delta)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_45x7k"]
+radius = 18.0094
+
+[sub_resource type="Animation" id="Animation_eto4q"]
+resource_name = "idle_Down"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 12, 13, 14, 15]
+}
+
+[sub_resource type="Animation" id="Animation_4nol1"]
+resource_name = "idle_Up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [21, 20, 21, 22, 23]
+}
+
+[sub_resource type="Animation" id="Animation_b0ey0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [21]
+}
+
+[sub_resource type="Animation" id="Animation_6jwvn"]
+resource_name = "idle_left"
+length = 0.8
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_q5028"]
+resource_name = "idle_right"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [16, 17, 18, 19]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lm6pa"]
+_data = {
+"RESET": SubResource("Animation_b0ey0"),
+"idle_Down": SubResource("Animation_eto4q"),
+"idle_Up": SubResource("Animation_4nol1"),
+"idle_left": SubResource("Animation_6jwvn"),
+"idle_right": SubResource("Animation_q5028")
+}
+
+[node name="CharacterBody" type="CharacterBody2D"]
+position = Vector2(1101, 668)
+script = SubResource("GDScript_a7uco")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 18)
+scale = Vector2(1, 2.24)
+shape = SubResource("CircleShape2D_45x7k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 18)
+scale = Vector2(2.602, 3.867)
+texture = ExtResource("1_xukgx")
+hframes = 4
+vframes = 12
+frame = 21
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_lm6pa")
+}

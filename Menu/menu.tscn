@@ -1,0 +1,143 @@
+[gd_scene load_steps=11 format=3 uid="uid://dgjwrc8w855xf"]
+
+[ext_resource type="Script" path="res://Menu/menu.gd" id="1_3rgaf"]
+[ext_resource type="Texture2D" uid="uid://bey8xpkum6iel" path="res://Menu Template.png" id="2_q2npi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o4kql"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 10
+
+[sub_resource type="Theme" id="Theme_sickh"]
+Button/styles/normal = SubResource("StyleBoxFlat_o4kql")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v0jg2"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 8
+
+[sub_resource type="Theme" id="Theme_0dh4m"]
+Button/styles/normal = SubResource("StyleBoxFlat_v0jg2")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t5oqk"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 8
+
+[sub_resource type="Theme" id="Theme_d6nso"]
+Button/styles/normal = SubResource("StyleBoxFlat_t5oqk")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmhx4"]
+bg_color = Color(0, 0, 0, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_4jglr"]
+LineEdit/colors/font_color = Color(0, 0, 0, 1)
+LineEdit/constants/caret_width = 10
+LineEdit/font_sizes/font_size = 30
+LineEdit/fonts/font = null
+LineEdit/icons/clear = null
+LineEdit/styles/normal = SubResource("StyleBoxFlat_mmhx4")
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = 6.0
+offset_right = 5.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.00152, 0.995986)
+script = ExtResource("1_3rgaf")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 2313.0
+offset_bottom = 1296.0
+texture = ExtResource("2_q2npi")
+
+[node name="Text Container" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = -59.909
+offset_top = -8.03224
+offset_right = -19.909
+offset_bottom = 31.9678
+
+[node name="Control" type="Control" parent="Text Container"]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="Text Container/Control"]
+layout_mode = 2
+offset_left = 1120.3
+offset_top = 559.245
+offset_right = 1276.3
+offset_bottom = 602.245
+theme = SubResource("Theme_sickh")
+text = "Play"
+
+[node name="OptionsButton" type="Button" parent="Text Container/Control"]
+layout_mode = 2
+offset_left = 1121.3
+offset_top = 618.483
+offset_right = 1277.3
+offset_bottom = 663.483
+theme = SubResource("Theme_0dh4m")
+text = "Options
+"
+
+[node name="QuitButton" type="Button" parent="Text Container/Control"]
+layout_mode = 2
+offset_left = 1121.3
+offset_top = 678.724
+offset_right = 1277.3
+offset_bottom = 722.724
+theme = SubResource("Theme_d6nso")
+text = "Quit"
+
+[node name="Title" type="LineEdit" parent="Text Container/Control"]
+layout_mode = 2
+offset_left = 684.959
+offset_top = -65.262
+offset_right = 1098.96
+offset_bottom = 103.738
+scale = Vector2(2.39788, 3.00806)
+theme = SubResource("Theme_4jglr")
+text = "2D Tower Defense"
+alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1166.23, 647.599)
+scale = Vector2(3.19666, 1.8584)
+zoom = Vector2(0.83, 0.83)
+
+[connection signal="pressed" from="Text Container/Control/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Text Container/Control/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Text Container/Control/QuitButton" to="." method="_on_quit_button_pressed"]

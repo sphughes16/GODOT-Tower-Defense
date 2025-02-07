@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnmdcr22tjlfw"]
+
+[ext_resource type="Texture2D" uid="uid://bw1hbi18phv6u" path="res://Level 1 map/Game Over.png" id="1_peh5k"]
+
+[node name="GameOverUi" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+custom_minimum_size = Vector2(39, 42)
+offset_right = 39.0
+offset_bottom = 42.0
+scale = Vector2(2.81313, 3.73846)
+texture = ExtResource("1_peh5k")
